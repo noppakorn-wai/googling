@@ -1,0 +1,74 @@
+{
+  "database": {
+    "rules": "internal/firebase/database.rules.json"
+  },
+  "firestore": {
+    "rules": "internal/firebase/firestore.rules",
+    "indexes": "internal/firebase/firestore.indexes.json"
+  },
+  "functions": {
+    "source": ".build",
+    "predeploy": ["yarn build:services"],
+    "ignore": ["/public/"]
+  },
+  "hosting": {
+    "public": ".build/public",
+    "postdeploy": ["yarn build:www"],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "headers": [
+      {
+        "source": "/service-worker.js",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
+      },
+      {
+        "source": "**/*.@(jpg|jpeg|gif|png)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=200000"
+          }
+        ]
+      },
+      {
+        "source": "**/*.css",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=200000"
+          }
+        ]
+      },
+      {
+        "source": "**/*.js",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "max-age=200000"
+          }
+        ]
+      }
+    ],
+    "rewrites": [
+      {
+        "source": "api",
+        "function": "api"
+      },
+      {
+        "source": "api/**",
+        "function": "api"
+      },
+      {
+        "source": "!/@(_next|static)/**",
+        "function": "www"
+      }
+    ]
+  },
+  "storage": {
+    "rules": "internal/firebase/storage.rules"
+  }
+}
