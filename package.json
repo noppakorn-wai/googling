@@ -10,7 +10,7 @@
   },
   "scripts": {
     "lint": "eslint",
-    "test": "jest --passWithNoTests",
+    "test": "jest",
     "dev": "babel-node -- ./node_modules/.bin/micro-dev services --ignore='__tests__|services/www'"
   },
   "husky": {
@@ -52,13 +52,15 @@
     "less": "^3.9.0",
     "lint-staged": "^8.1.5",
     "micro-dev": "^3.0.0",
-    "prettier": "^1.16.4"
+    "prettier": "^1.16.4",
+    "test-listen": "^1.1.0"
   },
   "dependencies": {
     "@emotion/core": "^10.0.10",
     "@emotion/styled": "^10.0.10",
     "@zeit/next-less": "^1.0.1",
     "antd": "^3.15.2",
+    "axios": "^0.18.0",
     "micro": "^9.3.3",
     "next": "^8.0.3",
     "react": "^16.8.6",
