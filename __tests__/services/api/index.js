@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import micro from 'micro'
 import listen from 'test-listen'
 import axios from 'axios'
