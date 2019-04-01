@@ -20,5 +20,6 @@ jobs:
     - stage: deploy
       if: branch = master AND type = push
       script:
+        - yarn build
         - firebase use "$FIREBASE_PROJECT_ID"
         - firebase deploy --token "$FIREBASE_TOKEN"
