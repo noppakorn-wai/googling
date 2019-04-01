@@ -2,6 +2,7 @@ language: node_js
 cache: yarn
 install:
   - yarn global add firebase-tools
+  - yarn
 jobs:
   include:
     - stage: lint
