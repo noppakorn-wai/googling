@@ -3,6 +3,9 @@ cache: yarn
 install:
   - yarn
   - yarn global add firebase-tools
+branches:
+  only:
+    - master
 jobs:
   include:
     - stage: lint
