@@ -1,0 +1,24 @@
+language: node_js
+cache: yarn
+install:
+  - yarn
+  - yarn global add firebase-tools
+branches:
+  only:
+    - master
+jobs:
+  include:
+    - stage: lint
+      script:
+        - yarn lint .
+    - stage: test
+      script:
+        - yarn test
+    - stage: build
+      script:
+        - yarn build
+    - stage: deploy
+      if: branch = master AND type = push
+      script:
+        - firebase use "$FIREBASE_PROJECT_ID"
+        - firebase deploy --token "$FIREBASE_TOKEN"
