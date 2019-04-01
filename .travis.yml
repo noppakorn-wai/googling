@@ -17,5 +17,7 @@ jobs:
       if: branch = master
       after_install:
         - yarn global add firebase-tools
+      before_script:
+        - firebase use "$FIREBASE_PROJECT_ID"
       script:
         - firebase deploy --token "$FIREBASE_TOKEN"
