@@ -1,16 +1,21 @@
 language: node_js
 cache: yarn
 install:
-  - yarn global add firebase-tools
   - yarn
 jobs:
   include:
     - stage: lint
-      script: yarn lint
+      script:
+        - yarn lint .
     - stage: test
-      script: yarn test
+      script:
+        - yarn test
     - stage: build
-      script: yarn build
+      script:
+        - yarn build
     - stage: deploy
       if: branch = master
-      script: firebase deploy --token "$FIREBASE_TOKEN"
+      after_install:
+        - yarn global add firebase-tools
+      script:
+        - firebase deploy --token "$FIREBASE_TOKEN"
