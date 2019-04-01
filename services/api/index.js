@@ -1,19 +1,17 @@
+import { parse as parseUrl } from 'url'
 import { run, send } from 'micro'
-
-const getStatus = (req, res) => {
-  switch (req.method) {
-    case 'GET':
-      return send(res, 200, {
-        status: true,
-      })
-    default:
-      return send(res, 405)
-  }
-}
+import loginHandler from './login'
 
 const api = (req, res) => {
-  if (req.url.startsWith('/api')) return getStatus(req, res)
-  return send(res, 404)
+  const { pathname } = parseUrl(req.url)
+  switch (`${req.method} ${pathname}`) {
+    case 'POST /api/login':
+      loginHandler(req, res)
+      break
+    default:
+      send(res, 404, 'look like you are lost')
+      break
+  }
 }
 
 export default (req, res) => run(req, res, api)
