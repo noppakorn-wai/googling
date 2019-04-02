@@ -5,6 +5,9 @@ import loginHandler from './login'
 const api = (req, res) => {
   const { pathname } = parseUrl(req.url)
   switch (`${req.method} ${pathname}`) {
+    case 'GET /api':
+      send(res, 200, { status: true })
+      break
     case 'POST /api/login':
       loginHandler(req, res)
       break

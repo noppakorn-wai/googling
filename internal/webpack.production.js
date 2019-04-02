@@ -1,5 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
+const Dotenv = require('dotenv-webpack')
 const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
@@ -18,6 +19,7 @@ module.exports = {
     ],
   },
   plugins: [
+    new Dotenv(),
     new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),

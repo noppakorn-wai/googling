@@ -14,7 +14,7 @@
     "dev": "babel-node -- ./node_modules/.bin/micro-dev services --ignore='__tests__|services/www'",
     "build:services": "webpack --config internal/webpack.production.js",
     "build:www": "next build services/www && cpx \"services/www/.next/**\" .build/.next && cpx \".build/.next/static/**\" .build/public/_next/static && cpx \"services/www/static/**\" .build/public/static && cpx \".build/.next/service-worker.js\" .build/public",
-    "build": "concurrently yarn:build:* && cpx \"*{package.json,yarn.lock}\" .build"
+    "build": "rimraf .build && concurrently yarn:build:* && cpx \"*{package.json,yarn.lock}\" .build"
   },
   "husky": {
     "hooks": {
@@ -39,12 +39,14 @@
     "@commitlint/cli": "^7.5.2",
     "@commitlint/config-conventional": "^7.5.0",
     "@emotion/babel-preset-css-prop": "^10.0.9",
+    "axios-mock-adapter": "^1.16.0",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
     "babel-plugin-import": "^1.11.0",
     "babel-plugin-module-resolver": "^3.2.0",
     "concurrently": "^4.1.0",
     "cpx": "^1.5.0",
+    "dotenv-webpack": "^1.7.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^4.1.0",
@@ -59,6 +61,7 @@
     "lint-staged": "^8.1.5",
     "micro-dev": "^3.0.0",
     "prettier": "^1.16.4",
+    "rimraf": "^2.6.3",
     "test-listen": "^1.1.0",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
