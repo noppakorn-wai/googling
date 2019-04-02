@@ -1,5 +1,7 @@
 # Googling
 
+[![Build Status](https://travis-ci.org/waitwing/googling.svg?branch=master)](https://travis-ci.org/waitwing/googling)
+
 Playground project using react and node.js to create bulk Google search schedule application.
 
 ## Getting Started
