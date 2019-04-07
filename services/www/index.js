@@ -1,6 +1,7 @@
 import { parse } from 'url'
 import next from 'next'
 import conf from './next.config'
+import { matchRoute } from './routes'
 
 const dev = process.env.NODE_ENV !== 'production'
 
@@ -17,7 +18,13 @@ const handle = app.getRequestHandler()
 
 function main(req, res) {
   const parsedUrl = parse(req.url, true)
-  return handle(req, res, parsedUrl)
+  const { pathname, query } = parsedUrl
+  const route = matchRoute(pathname)
+  if (route) {
+    app.render(req, res, route.page, query)
+    return
+  }
+  handle(req, res, parsedUrl)
 }
 
 let preparing = true

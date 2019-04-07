@@ -5,7 +5,7 @@ import db from 'api/utils/db'
 
 const searchCreateHandler = async (req, res) => {
   const { id: userId } = await getProfile(req)
-  const { keywords } = await json(req)
+  const { fileName, keywords } = await json(req)
   if (!keywords?.length) throw createError(400, 'BAD_REQUEST')
   await db.sequelize.sync()
   const tx = await db.sequelize.transaction()
@@ -13,7 +13,9 @@ const searchCreateHandler = async (req, res) => {
     const searchRecord = await db.Search.create(
       {
         userId,
+        fileName,
         numberOfKeywords: keywords.length,
+        numberOfResults: 0,
       },
       { transaction: tx },
     )
