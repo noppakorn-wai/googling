@@ -78,7 +78,8 @@
     "micro": "^9.3.3",
     "next": "^8.0.3",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "recompose": "^0.30.0"
   },
   "peerDependencies": {
     "firebase-tools": "^6.5.0"
