@@ -54,6 +54,15 @@ module.exports = {
     [
       'import',
       {
+        libraryName: 'recompose',
+        libraryDirectory: '',
+        camel2DashComponentName: false,
+      },
+      'recompose',
+    ],
+    [
+      'import',
+      {
         libraryName: 'www/components/antd',
         libraryDirectory: '',
         camel2DashComponentName: false,

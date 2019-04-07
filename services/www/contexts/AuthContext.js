@@ -3,6 +3,9 @@ import PropTypes from 'prop-types'
 import axios from 'axios'
 import Cookie from 'js-cookie'
 import Router from 'next/router'
+import { css } from '@emotion/core'
+import { Spin } from 'www/components/antd'
+import { pages, matchRoute } from 'www/routes'
 
 export const AuthContext = React.createContext()
 
@@ -36,14 +39,29 @@ const AuthProvider = ({ children, cookie }) => {
     }
     if (state.refreshToken) cookie.set('refreshToken', state.refreshToken)
     else cookie.remove('refreshToken')
-    const isLoginPage = Router.pathname === '/login'
-    if (isLoginPage && state.idToken) Router.push('/dashboard', '/dashboard')
-    else if (!isLoginPage && !state.idToken) window.location = '/login'
+    const route = matchRoute(Router.pathname)
+    const isLoginPage = route?.name === pages.login.name
+    if (isLoginPage && state.idToken) Router.push(pages.dashboard.page, '/dashboard')
+    else if (route?.meta?.requireAuth === true && !state.idToken) window.location = '/login'
   }, [state.idToken, state.refreshToken])
+  const loading = state.idToken && !state.email
+  if (loading) {
+    return (
+      <Spin
+        spinning
+        size="large"
+        css={css`
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        `}
+      />
+    )
+  }
   return (
     <AuthContext.Provider
       value={{
-        loading: !!state.email,
         email: state.email,
         login,
         logout,
