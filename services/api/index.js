@@ -1,24 +1,25 @@
-import { parse as parseUrl } from 'url'
 import { run, send } from 'micro'
+import { router, get, put, post, del } from 'microrouter'
 import loginHandler from './login'
 import profileHandler from './profile'
+import searchGetHandler from './searchGet'
+import searchCreateHandler from './searchCreate'
+import searchListHandler from './searchList'
 
-const api = (req, res) => {
-  const { pathname } = parseUrl(req.url)
-  switch (`${req.method} ${pathname}`) {
-    case 'GET /api':
-      send(res, 200, { status: true })
-      break
-    case 'POST /api/login':
-      loginHandler(req, res)
-      break
-    case 'GET /api/profile':
-      profileHandler(req, res)
-      break
-    default:
-      send(res, 404, 'look like you are lost')
-      break
-  }
-}
+export const statusHandler = (req, res) => send(res, 200, { status: true })
+export const notFoundHandler = (req, res) => send(res, 404, 'look like you are lost')
+
+const api = router(
+  get('/api', statusHandler),
+  post('/api/login', loginHandler),
+  get('/api/profile', profileHandler),
+  get('/api/searches', searchListHandler),
+  post('/api/searches', searchCreateHandler),
+  get('/api/searches/:id', searchGetHandler),
+  get('/*', notFoundHandler),
+  put('/*', notFoundHandler),
+  post('/*', notFoundHandler),
+  del('/*', notFoundHandler),
+)
 
 export default (req, res) => run(req, res, api)

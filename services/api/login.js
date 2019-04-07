@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { run, send } from 'micro'
-import { json } from './utils/bodyParser'
+import { json } from 'api/utils/bodyParser'
 
 export const FIREBASE_LOGIN_URL = '/identitytoolkit/v3/relyingparty/verifyPassword'
 
