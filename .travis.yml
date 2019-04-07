@@ -15,6 +15,7 @@ jobs:
       script:
         - yarn test
     - stage: build
+      if: branch = master AND type != push
       script:
         - yarn build
     - stage: deploy
